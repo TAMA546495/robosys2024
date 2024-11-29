@@ -1,0 +1,53 @@
+#!/usr/bin/python3
+# SPDX-FileCopyrightText: 2024 Yuuki Tamada
+# SPDX-License-Identifier: BSD-3-Clause
+
+import sys
+import random
+import time  # time モジュールをインポート
+
+p = ["🍒", "🍋", "🍊", "🔔", "７", "💎"]
+
+def spin_slot():
+    return [random.choice(p) for _ in range(3)]
+
+def result_slot(slot):
+    if len(set(slot)) == 1:
+        return "ジャックポット!!!!!!"
+    elif len(set(slot)) == 2:
+        return "当たり!"
+    else:
+        return "ハズレ"
+
+def number_of_time():
+    while True:
+        try:
+            # ユーザーにスピン回数を入力してもらう
+            spins = int(input("回数を入力してください。1~10回まで: "))
+            if 1 <= spins <= 10:
+                return spins
+            else:
+                print("エラー: 1~10の範囲で入力してください。")
+                sys.exit(1)  # 1~10の範囲以外の場合、エラーでプログラムを終了
+        except ValueError:  # ValueError に対応
+            print("エラー: 無効です。")
+            sys.exit(1)  # 整数以外が入力された場合もエラーでプログラムを終了
+
+def play_slot():
+    spins = number_of_time()  # ユーザーからスピン回数を取得
+    print(f"回数: {spins}回")
+
+    for i in range(spins):
+        time.sleep(0.1)  # 0.1秒の遅延
+        slot = spin_slot()
+        print(f"{'  '.join(slot)}")
+        result = result_slot(slot)
+        print(result)  # 取得した結果を表示
+        print()
+
+    print("終了")
+
+if __name__ == "__main__":
+    print("スロット開始!")
+    play_slot()
+
