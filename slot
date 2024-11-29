@@ -19,18 +19,17 @@ def result_slot(slot):
         return "ハズレ"
 
 def number_of_time():
-    while True:
-        try:
-            # スピン回数を入力してもらう
-            spins = int(input("回数を入力してください。1~10回まで: "))
-            if 1 <= spins <= 10:
-                return spins
-            else:
-                print("エラー: 1~10の範囲で入力してください。")
-                sys.exit(1)  # 1~10の範囲以外の場合、エラーでプログラムを終了
-        except ValueError:  
-            print("エラー: 無効です。")
-            sys.exit(1)  # 整数以外が入力された場合もエラーでプログラムを終了
+    try:
+        # 標準入力から回数を取得
+        spins = int(sys.stdin.read().strip())
+        if 1 <= spins <= 10:
+            return spins
+        else:
+            print("エラー: 1~10の範囲で入力してください。")
+            sys.exit(1)  # 1~10の範囲以外の場合、エラーでプログラムを終了
+    except ValueError:
+        print("エラー: 無効です。")
+        sys.exit(1)  # 整数以外が入力された場合もエラーでプログラムを終了
 
 def play_slot():
     spins = number_of_time()  # スピン回数を取得
