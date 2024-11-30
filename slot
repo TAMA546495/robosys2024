@@ -1,18 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 
 # SPDX-FileCopyrightText: 2024 Yuuki Tamada
 # SPDX-License-Identifier: BSD-3-Clause
 
 import sys
 import random
 
-p = ["🍒", "🍋", "🍊", "🔔", "７", "💎"]
+p = ["🍒", "🍋", "🍊", "🔔", "7", "💎"]
 
 def spin_slot():
     return [random.choice(p) for _ in range(3)]
 
 def result_slot(slot):
     if len(set(slot)) == 1:
-        return "ジャックポット!!!!!!"
+        return "ジャックポット!!!!!!" 
     elif len(set(slot)) == 2:
         return "当たり!"
     else:
@@ -20,31 +20,22 @@ def result_slot(slot):
 
 def number_of_time():
     try:
-        # 標準入力から回数を取得
+        
         spins = int(sys.stdin.read().strip())
         if 1 <= spins <= 10:
             return spins
         else:
-            print("エラー: 1~10の範囲で入力してください。")
-            sys.exit(1)  # 1~10の範囲以外の場合、エラーでプログラムを終了
-    except ValueError:
-        print("エラー: 無効です。")
-        sys.exit(1)  # 整数以外が入力された場合もエラーでプログラムを終了
+            sys.exit(1)  
+    except (ValueError, TypeError):
+        sys.exit(1)  
 
 def play_slot():
-    spins = number_of_time()  # スピン回数を取得
-    print(f"回数: {spins}回")
+    spins = number_of_time()
 
-    for i in range(spins):
+    for _ in range(spins):
         slot = spin_slot()
-        print(f"{'  '.join(slot)}")
         result = result_slot(slot)
-        print(result)  # 結果を表示
-        print()
-
-    print("終了")
+        print(f"{' '.join(slot)} {result}")
 
 if __name__ == "__main__":
-    print("スロット開始!")
     play_slot()
-
